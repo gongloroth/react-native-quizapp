@@ -77,6 +77,7 @@ class Login extends Component {
           <View style={styles.containerStyle}>
             <Text style={styles.labelStyle}>Password:</Text>
               <TextInput
+                secureTextEntry
                 style={styles.inputStyle}
                 placeholder='password'
                 placeholderTextColor='#90CAF9'

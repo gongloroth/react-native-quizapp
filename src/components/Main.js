@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import {
   Button,
   QuizLabel
@@ -9,13 +10,17 @@ import CategorySelect from './CategorySelect';
 
 class Main extends Component {
 
+  onButtonPress() {
+    Actions.questionList();
+  }
+
   render() {
     return (
       <View style={styles.MainContainer}>
         <QuizLabel labelText='Quiz App' />
         <CategorySelect />
         <View style={{ flex: 1 }} />
-        <Button>
+        <Button onPress={this.onButtonPress.bind(this)}>
           Start Quiz
         </Button>
       </View>

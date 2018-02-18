@@ -11,7 +11,7 @@ const RouterComponent = () => {
         <Scene key="auth">
           <Scene key="login" component={Login} title="Please Login" />
         </Scene>
-        <Scene key="main" initial>
+        <Scene key="main">
           <Scene
             onRight={() => Actions.questionList()}
             rightTitle="Add"
@@ -20,7 +20,7 @@ const RouterComponent = () => {
             component={Main}
             title="Main Menu"
           />
-          <Scene key="questionsList" component={QuestionList} title="Quiz Questions" initial />
+          <Scene key="questionList" component={QuestionList} title="Quiz Questions" />
         </Scene>
       </Scene>
     </Router>
