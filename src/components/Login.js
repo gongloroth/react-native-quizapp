@@ -3,13 +3,12 @@ import {
   View,
   Text,
   TextInput,
-  TouchableWithoutFeedback,
   Keyboard,
   ActivityIndicator
 } from 'react-native';
 import { connect } from 'react-redux';
 import { emailChanged, passwordChanged, loginUser } from '../actions';
-import { StartButton } from './common';
+import { Button } from './common';
 
 class Login extends Component {
   onEmailChange(text) {
@@ -52,9 +51,9 @@ class Login extends Component {
 
     console.log(this.props.loading);
     return (
-      <StartButton onPress={this.onButtonPress.bind(this)}>
+      <Button onPress={this.onButtonPress.bind(this)}>
         Login
-      </StartButton>
+      </Button>
     );
   }
 
@@ -62,32 +61,32 @@ class Login extends Component {
     return (
 
       <View style={styles.mainContainer}>
-      <View style={styles.loginContainerStyle}>
-        <View style={styles.containerStyle}>
-          <Text style={styles.labelStyle}>Email:</Text>
-            <TextInput
-              style={styles.inputStyle}
-              placeholder='email@gmail.com'
-              placeholderTextColor='#90CAF9'
-              underlineColorAndroid='#90CAF9'
-              autoCapitalize='none'
-              onChangeText={this.onEmailChange.bind(this)}
-              value={this.props.email}
-            />
+        <View style={styles.loginContainerStyle}>
+          <View style={styles.containerStyle}>
+            <Text style={styles.labelStyle}>Email:</Text>
+              <TextInput
+                style={styles.inputStyle}
+                placeholder='email@gmail.com'
+                placeholderTextColor='#90CAF9'
+                underlineColorAndroid='#90CAF9'
+                autoCapitalize='none'
+                onChangeText={this.onEmailChange.bind(this)}
+                value={this.props.email}
+              />
+          </View>
+          <View style={styles.containerStyle}>
+            <Text style={styles.labelStyle}>Password:</Text>
+              <TextInput
+                style={styles.inputStyle}
+                placeholder='password'
+                placeholderTextColor='#90CAF9'
+                underlineColorAndroid='#90CAF9'
+                autoCapitalize='none'
+                onChangeText={this.onPasswordChange.bind(this)}
+                value={this.props.password}
+              />
+          </View>
         </View>
-        <View style={styles.containerStyle}>
-          <Text style={styles.labelStyle}>Password:</Text>
-            <TextInput
-              style={styles.inputStyle}
-              placeholder='password'
-              placeholderTextColor='#90CAF9'
-              underlineColorAndroid='#90CAF9'
-              autoCapitalize='none'
-              onChangeText={this.onPasswordChange.bind(this)}
-              value={this.props.password}
-            />
-        </View>
-      </View>
         {this.renderButton()}
         {this.renderError()}
       </View>

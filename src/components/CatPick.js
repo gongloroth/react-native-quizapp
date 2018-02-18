@@ -22,7 +22,7 @@ class CatPick extends Component {
    );
   }
 
-   render() {
+   render() {     
       return (
         <View>
           <Picker

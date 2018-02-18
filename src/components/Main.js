@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import {
-  StartButton,
+  Button,
   QuizLabel
 } from './common';
 import CategorySelect from './CategorySelect';
@@ -15,9 +15,9 @@ class Main extends Component {
         <QuizLabel labelText='Quiz App' />
         <CategorySelect />
         <View style={{ flex: 1 }} />
-        <StartButton>
+        <Button>
           Start Quiz
-        </StartButton>
+        </Button>
       </View>
     );
   }
