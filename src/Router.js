@@ -20,7 +20,7 @@ const RouterComponent = () => {
             component={Main}
             title="Main Menu"
           />
-          <Scene key="questionsList" component={QuestionList} title="Quiz Questions" />
+          <Scene key="questionList" component={QuestionList} title="Quiz Questions" />
         </Scene>
       </Scene>
     </Router>
