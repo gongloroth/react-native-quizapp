@@ -1,13 +1,32 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
+import { connect } from 'react-redux';
 import { RadioGroup, RadioButton } from 'react-native-flexi-radio-button';
+import { answerOptions, answerChanged } from '../actions';
 
 class Question extends Component {
+  /*
+  componentWillMount() {
+    this.props.answerOptions(
+        this.props.correct_answer,
+        this.props.incorrect_answers
+      );
+  }
+  */
 
-  onSelect(index, value) {
-    this.setState({
-      text: `Selected index: ${index} , value: ${value}`
-    });
+  renderRadioButtons() {
+  const answers = this.props.incorrect_answers.map(
+    (item, index) => ({ label: item, value: index })
+  );
+  answers.push({ label: this.props.correct_answer, value: 3 });
+  console.log(answers);
+    
+  return answers.map((item) => (
+        <RadioButton key={item.label} value={item.label} >
+          <Text>{item.label}</Text>
+        </RadioButton>
+      )
+    );
   }
 
   render() {
@@ -16,34 +35,21 @@ class Question extends Component {
         <View style={styles.containerStyle}>
           <Text style={styles.labelStyle}>Question {this.props.index + 1}</Text>
           <Text style={styles.questionStyle}>
-            {this.props.question}
+            {this.props.question.question}
           </Text>
         </View>
         <View style={styles.containerStyle2}>
-        <RadioGroup
-          onSelect={(index, value) => this.onSelect(index, value)}
-          thickness={2}
-        >
-          <RadioButton
-            value={'item1'}
+          <RadioGroup
+            onSelect={(index, value) => this.props.answerChanged(index, value)}
           >
-            <Text>This is item #1</Text>
-          </RadioButton>
-
-          <RadioButton value={'item2'}>
-            <Text>This is item #2</Text>
-          </RadioButton>
-
-          <RadioButton value={'item3'}>
-            <Text>This is item #3</Text>
-          </RadioButton>
-        </RadioGroup>
+            {this.renderRadioButtons()}
+          </RadioGroup>
         </View>
       </View>
     );
   }
 }
-
+//{this.renderRadioButtons()}
 const styles = {
   containerStyle: {
     margin: 10,
@@ -95,4 +101,11 @@ const styles = {
   }
 };
 
-export default Question;
+const mapStateToProps = (state) => {
+  return {
+    selected: state.ans.selected,
+    //answers: state.ans.answers
+  };
+};
+
+export default connect(mapStateToProps, { answerOptions, answerChanged })(Question);

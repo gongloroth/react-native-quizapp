@@ -12,7 +12,9 @@ import {
   CATEGORIES_LOADING_FAIL,
   QUESTIONS_LOADING_SUCCESS,
   QUESTIONS_LOADING_FAIL,
-  QUESTIONS_LOADING
+  QUESTIONS_LOADING,
+  ANSWER_OPTIONS,
+  ANSWER_OPTION_CHANGED
 } from './types';
 
 export const emailChanged = (text) => {
@@ -121,7 +123,7 @@ export const loadQuestions = (categoryId) => {
     .catch((error) => {
     console.log(error);
      })
-    .then((responseData) => loadingQuestionsSuccesS(dispatch, responseData))
+    .then((responseData) => loadingQuestionsSuccess(dispatch, responseData))
     .catch((error) => {
       console.log(error);
       loadingQuestionsFail(dispatch);
@@ -129,7 +131,7 @@ export const loadQuestions = (categoryId) => {
   };
 };
 
-export const loadingQuestionsSuccesS = (dispatch, questions) => {
+export const loadingQuestionsSuccess = (dispatch, questions) => {
   dispatch({
     type: QUESTIONS_LOADING_SUCCESS,
     payload: questions
@@ -138,4 +140,39 @@ export const loadingQuestionsSuccesS = (dispatch, questions) => {
 
 export const loadingQuestionsFail = (dispatch) => {
   dispatch({ type: QUESTIONS_LOADING_FAIL });
+};
+
+export const answerChanged = (index, value) => {
+  return {
+    type: ANSWER_OPTION_CHANGED,
+    payload: { answerIndex: index, answer: value }
+  };
+};
+
+export const answerOptions = (correctAnswer, incorrectAnswers) => {
+  const answers = incorrectAnswers.map((item, index) => ({ label: item, value: index }));
+  answers.push({ label: correctAnswer, value: 3 });
+  /*
+  const newAnswers = (answers) => {
+    const newArray = answers;
+    let currentIndex = newArray.length, temporaryValue, randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      // And swap it with the current element.
+      temporaryValue = newArray[currentIndex];
+      newArray[currentIndex] = newArray[randomIndex];
+      newArray[randomIndex] = temporaryValue;
+      return answers;
+    }
+  };
+  */console.log(answers);
+  return {
+    type: ANSWER_OPTIONS,
+    payload: answers
+  };
 };

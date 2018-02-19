@@ -22,10 +22,10 @@ export default (state = INITIAL_STATE, action) => {
         loadingQuestions: false
       };
     case QUESTIONS_LOADING_FAIL:
-    return { ...state,
-      error: 'Loading questions failed.',
-      loadingQuestions: false,
-     };
+      return { ...state,
+        error: 'Loading questions failed.',
+        loadingQuestions: false,
+       };
     default:
       return state;
   }

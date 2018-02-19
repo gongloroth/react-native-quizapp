@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Picker, View, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
-import { loadCategories, categoryChanged } from '../actions';
+import { categoryChanged } from '../actions';
 
 class CatPick extends Component {
 

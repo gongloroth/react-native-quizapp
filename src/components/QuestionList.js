@@ -16,8 +16,10 @@ class QuestionList extends Component {
       return this.props.questions.map((question, index) => (
         <Question
           key={question.question}
-          question={question.question}
+          question={question}
           index={index}
+          correct_answer={question.correct_answer}
+          incorrect_answers={question.incorrect_answers}
         />
       )
      );
@@ -61,7 +63,6 @@ const styles = {
 };
 
 const mapStateToProps = (state) => {
-
   return {
     questions: state.quest.questions,
     loadingQuestions: state.quest.loadingQuestions,

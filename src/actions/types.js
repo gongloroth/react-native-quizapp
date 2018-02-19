@@ -12,3 +12,6 @@ export const CATEGORY_CHANGED = 'category_changed';
 export const QUESTIONS_LOADING_SUCCESS = 'questions_loading_success';
 export const QUESTIONS_LOADING_FAIL = 'questions_loading_fail';
 export const QUESTIONS_LOADING = 'questions_loading';
+
+export const ANSWER_OPTIONS = 'answer_options';
+export const ANSWER_OPTION_CHANGED = 'answer_option_changed';
