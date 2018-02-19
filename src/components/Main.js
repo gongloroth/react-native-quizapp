@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, ActivityIndicator } from 'react-native';
+import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
+import { loadCategories } from '../actions';
 import {
   Button,
   QuizLabel
@@ -10,15 +12,31 @@ import CategorySelect from './CategorySelect';
 
 class Main extends Component {
 
+  componentWillMount() {
+    this.props.loadCategories();
+  }
+
   onButtonPress() {
     Actions.questionList();
   }
 
   render() {
+    if (this.props.loadingCategories) {
+      console.log('Loading categories: ');
+      console.log(this.props.loadingCategories);
+      return (
+        <View style={styles.indicatorContainer}>
+          <ActivityIndicator size="large" color="#0000ff" />
+        </View>
+      );
+    }
+
+    console.log('Loading categories: ');
+    console.log(this.props.loadingCategories);
     return (
       <View style={styles.MainContainer}>
         <QuizLabel labelText='Quiz App' />
-        <CategorySelect />
+        <CategorySelect categories={this.props.categories} />
         <View style={{ flex: 1 }} />
         <Button onPress={this.onButtonPress.bind(this)}>
           Start Quiz
@@ -42,7 +60,19 @@ const styles = {
     alignSelf: 'stretch',
     flexDirection: 'column',
     backgroundColor: '#90CAF9',
+  },
+  indicatorContainer: {
+    flex: 1,
+    backgroundColor: '#90CAF9',
+    justifyContent: 'center'
   }
 };
 
-export default Main;
+const mapStateToProps = (state) => {
+  return {
+    loadingCategories: state.cat.loadingCategories,
+    categories: state.cat.categories
+  };
+};
+
+export default connect(mapStateToProps, { loadCategories })(Main);

@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import CatPick from './CatPick';
 
-const CategorySelect = () => {
+const CategorySelect = ({ categories }) => {
   return (
     <View style={styles.containerStyle}>
       <View style={styles.labelStyle}>
@@ -11,7 +11,7 @@ const CategorySelect = () => {
         </Text>
       </View>
       <View style={styles.pickerStyle}>
-        <CatPick />
+        <CatPick categories={categories} />
       </View>
     </View>
   );

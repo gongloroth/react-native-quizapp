@@ -5,10 +5,6 @@ import { loadCategories, categoryChanged } from '../actions';
 
 class CatPick extends Component {
 
-  componentWillMount() {
-    this.props.loadCategories();
-  }
-
   updateCategory = (itemValue, itemPosition) => {
     const category = { name: itemValue, id: itemPosition };
     console.log(category);
@@ -22,7 +18,7 @@ class CatPick extends Component {
    );
   }
 
-   render() {     
+   render() {
       return (
         <View>
           <Picker
@@ -39,11 +35,9 @@ class CatPick extends Component {
 const mapStateToProps = (state) => {
 
   return {
-    categories: state.cat.categories,
-    loadingSucces: state.cat.loadingSuccess,
-    loadingCategories: state.cat.loadingCategories,
-    Placeholder: state.cat.Placeholder
+    Placeholder: state.cat.Placeholder,
+    PlaceholderId: state.cat.PlaceholderId
   };
 };
 
-export default connect(mapStateToProps, { loadCategories, categoryChanged })(CatPick);
+export default connect(mapStateToProps, { categoryChanged })(CatPick);

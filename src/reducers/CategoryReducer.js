@@ -10,7 +10,6 @@ const INITIAL_STATE = {
   loadingCategories: false,
   PlaceholderId: '',
   Placeholder: '',
-  loadingSuccess: false
  };
 
 export default (state = INITIAL_STATE, action) => {
@@ -25,14 +24,12 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         categories: action.payload.trivia_categories,
-        loadingSuccess: true,
         loadingCategories: false
       };
     case CATEGORIES_LOADING_FAIL:
     return { ...state,
       error: 'Loading failed.',
       loadingCategories: false,
-      loadingSuccess: false
      };
     default:
       return state;

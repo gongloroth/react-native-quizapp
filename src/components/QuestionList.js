@@ -1,56 +1,44 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView } from 'react-native';
-import { RadioGroup, RadioButton } from 'react-native-flexi-radio-button';
+import { View, ScrollView, ActivityIndicator } from 'react-native';
+import { connect } from 'react-redux';
+import { loadQuestions } from '../actions';
+import Question from './Question';
 
 class QuestionList extends Component {
 
-  onSelect(index, value) {
-    this.setState({
-      text: `Selected index: ${index} , value: ${value}`
-    });
+  componentWillMount() {
+    console.log(this.props.categoryId);
+    this.props.loadQuestions(this.props.categoryId);
   }
 
-  loadQuestions() {
-    const data = [{ question: 'question1' }, { queston: 'question3' }];
-    console.log(data);
-      return data;
-    }
-
-    renderItem = (question) => {
-      console.log(question);
-      return <Text>{question.question}</Text>;
+    renderQuestions() {
+      console.log(this.props.questions);
+      return this.props.questions.map((question, index) => (
+        <Question
+          key={question.question}
+          question={question.question}
+          index={index}
+        />
+      )
+     );
     }
 
   render() {
+    if (this.props.loadingQuestions) {
+      console.log('Loading questions: ');
+      console.log(this.props.loadingQuestions);
+      return (
+        <View style={styles.indicatorContainer}>
+          <ActivityIndicator size="large" color="#0000ff" />
+        </View>
+      );
+    }
+
+    console.log('Loading questions: ');
+    console.log(this.props.loadingQuestions);
     return (
       <ScrollView style={styles.mainContainer}>
-        <View style={styles.containerStyle}>
-          <Text style={styles.labelStyle}>Question 1</Text>
-          <Text style={styles.questionStyle}>
-            What is your name ha naygoynashgféasdégadkéajdk as fkéajs?
-          </Text>
-        </View>
-        <View style={styles.containerStyle2}>
-        <RadioGroup
-          onSelect={(index, value) => this.onSelect(index, value)}
-          thickness={2}
-        >
-          <RadioButton
-            value={'item1'}
-          >
-            <Text>This is item #1</Text>
-          </RadioButton>
-
-          <RadioButton value={'item2'}>
-            <Text>This is item #2</Text>
-          </RadioButton>
-
-          <RadioButton value={'item3'}>
-            <Text>This is item #3</Text>
-          </RadioButton>
-        </RadioGroup>
-
-        </View>
+        {this.renderQuestions()}
       </ScrollView>
     );
   }
@@ -65,54 +53,20 @@ const styles = {
     paddingTop: 5,
     paddingBottom: 5
   },
-  containerStyle: {
-    margin: 10,
-    marginBottom: 1,
-    padding: 10,
-    backgroundColor: '#841584',
-    flexDirection: 'column',
-    alignItems: 'center',
-    borderRadius: 10,
-    borderWidth: 0,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    elevation: 2,
-    position: 'relative'
-  },
-  containerStyle2: {
-    marginLeft: 10,
-    marginRight: 10,
-    marginTop: 1,
-    marginBottom: 10,
-    padding: 10,
-    backgroundColor: '#BBDEFB',
-    borderRadius: 10,
-    borderWidth: 0,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    elevation: 2,
-    position: 'relative'
-  },
-  labelStyle: {
-    color: '#90CAF9',
-    fontWeight: 'bold',
-    fontSize: 18
-  },
-  questionStyle: {
-    color: '#90CAF9',
-    fontWeight: 'bold',
-    fontSize: 14,
-    textAlign: 'center'
-  },
-  answerStyle: {
-    color: '#841584',
-    fontWeight: 'bold',
-    fontSize: 14,
+  indicatorContainer: {
+    flex: 1,
+    backgroundColor: '#90CAF9',
+    justifyContent: 'center'
   }
 };
 
-export default QuestionList;
+const mapStateToProps = (state) => {
+
+  return {
+    questions: state.quest.questions,
+    loadingQuestions: state.quest.loadingQuestions,
+    categoryId: state.cat.PlaceholderId
+  };
+};
+
+export default connect(mapStateToProps, { loadQuestions })(QuestionList);
