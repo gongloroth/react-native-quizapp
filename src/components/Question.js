@@ -2,26 +2,37 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { RadioGroup, RadioButton } from 'react-native-flexi-radio-button';
-import { answerOptions, answerChanged } from '../actions';
+import { answerChanged } from '../actions';
 
 class Question extends Component {
-  /*
-  componentWillMount() {
-    this.props.answerOptions(
-        this.props.correct_answer,
-        this.props.incorrect_answers
-      );
+
+  shuffle(answers) {
+    const newArray = answers;
+    let currentIndex = newArray.length, temporaryValue, randomIndex;
+
+    // While there remain elements to shuffle...
+    while (currentIndex !== 0) {
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      // And swap it with the current element.
+      temporaryValue = newArray[currentIndex];
+      newArray[currentIndex] = newArray[randomIndex];
+      newArray[randomIndex] = temporaryValue;
+      return newArray;
+    }
   }
-  */
 
   renderRadioButtons() {
   const answers = this.props.incorrect_answers.map(
     (item, index) => ({ label: item, value: index })
   );
   answers.push({ label: this.props.correct_answer, value: 3 });
+
   console.log(answers);
-    
-  return answers.map((item) => (
+
+  return this.shuffle(answers).map((item) => (
         <RadioButton key={item.label} value={item.label} >
           <Text>{item.label}</Text>
         </RadioButton>
@@ -40,7 +51,7 @@ class Question extends Component {
         </View>
         <View style={styles.containerStyle2}>
           <RadioGroup
-            onSelect={(index, value) => this.props.answerChanged(index, value)}
+            onSelect={(index, value) => this.props.answerChanged(index, value, this.props.index)}
           >
             {this.renderRadioButtons()}
           </RadioGroup>
@@ -49,7 +60,7 @@ class Question extends Component {
     );
   }
 }
-//{this.renderRadioButtons()}
+
 const styles = {
   containerStyle: {
     margin: 10,
@@ -104,8 +115,7 @@ const styles = {
 const mapStateToProps = (state) => {
   return {
     selected: state.ans.selected,
-    //answers: state.ans.answers
   };
 };
 
-export default connect(mapStateToProps, { answerOptions, answerChanged })(Question);
+export default connect(mapStateToProps, { answerChanged })(Question);

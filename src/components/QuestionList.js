@@ -1,14 +1,26 @@
 import React, { Component } from 'react';
-import { View, ScrollView, ActivityIndicator } from 'react-native';
+import { View, ScrollView, ActivityIndicator, ToastAndroid } from 'react-native';
 import { connect } from 'react-redux';
-import { loadQuestions } from '../actions';
+import { loadQuestions, calculateResult } from '../actions';
 import Question from './Question';
+import { Button } from './common';
 
 class QuestionList extends Component {
 
   componentWillMount() {
     console.log(this.props.categoryId);
     this.props.loadQuestions(this.props.categoryId);
+  }
+
+  onButtonPress() {
+    console.log(this.props.answers);
+    this.props.calculateResult(this.props.answers, this.props.questions);
+  }
+
+  onShowResult() {
+    console.log(this.props.result);
+    const resultString = 'Great job!\n Your result is: ' + this.props.result + ' points';
+    ToastAndroid.show(resultString, ToastAndroid.SHORT);
   }
 
     renderQuestions() {
@@ -41,6 +53,12 @@ class QuestionList extends Component {
     return (
       <ScrollView style={styles.mainContainer}>
         {this.renderQuestions()}
+        <Button onPress={this.onButtonPress.bind(this)}>
+          Submit
+        </Button>
+        <Button onPress={this.onShowResult.bind(this)}>
+          Show Results
+        </Button>
       </ScrollView>
     );
   }
@@ -66,8 +84,11 @@ const mapStateToProps = (state) => {
   return {
     questions: state.quest.questions,
     loadingQuestions: state.quest.loadingQuestions,
-    categoryId: state.cat.PlaceholderId
+    categoryId: state.cat.PlaceholderId,
+    answers: state.ans,
+    result: state.ans.score,
+    calculating: state.ans.calculating
   };
 };
 
-export default connect(mapStateToProps, { loadQuestions })(QuestionList);
+export default connect(mapStateToProps, { loadQuestions, calculateResult })(QuestionList);

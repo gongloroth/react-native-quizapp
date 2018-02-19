@@ -11,11 +11,8 @@ const RouterComponent = () => {
         <Scene key="auth">
           <Scene key="login" component={Login} title="Please Login" />
         </Scene>
-        <Scene key="main" initial>
+        <Scene key="main">
           <Scene
-            onRight={() => Actions.questionList()}
-            rightTitle="Add"
-            rightButtonTextStyle={styles.rightTextStyle}
             key="main_menu"
             component={Main}
             title="Main Menu"
@@ -25,14 +22,6 @@ const RouterComponent = () => {
       </Scene>
     </Router>
   );
-};
-
-const styles = {
-  rightTextStyle: {
-    fontSize: 20,
-    color: 'red',
-    margin: 5
-  }
 };
 
 export default RouterComponent;
