@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, WebView } from 'react-native';
+import { View, Text } from 'react-native';
 import { connect } from 'react-redux';
+import he from 'he';
 import { RadioGroup, RadioButton } from 'react-native-flexi-radio-button';
 import { answerChanged } from '../actions';
 
@@ -26,9 +27,9 @@ class Question extends Component {
 
   renderRadioButtons() {
   const answers = this.props.incorrect_answers.map(
-    (item, index) => ({ label: item, value: index })
+    (item, index) => ({ label: he.decode(item), value: index })
   );
-  answers.push({ label: this.props.correct_answer, value: 3 });
+  answers.push({ label: he.decode(this.props.correct_answer), value: 3 });
 
   console.log(answers);
 
@@ -41,8 +42,6 @@ class Question extends Component {
   }
 
   render() {
-    const he = require('he');
-
     const question = he.decode(this.props.question.question);
     console.log(question);
 

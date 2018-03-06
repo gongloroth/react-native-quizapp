@@ -4,7 +4,7 @@ import {
   QUESTIONS_LOADING,
 } from './types';
 
-export const loadQuestions = (categoryId) => {
+export const loadQuestions = (categoryId, userToken) => {
   return (dispatch) => {
     dispatch({ type: QUESTIONS_LOADING });
     console.log('loading questions...');
@@ -12,7 +12,8 @@ export const loadQuestions = (categoryId) => {
     const params = {
       amount: 10,
       category: categoryId + 9,
-      type: 'multiple'
+      type: 'multiple',
+      token: userToken
     };
     let url = 'https://opentdb.com/api.php?';
 

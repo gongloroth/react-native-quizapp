@@ -12,6 +12,7 @@ import {
   ANSWER_OPTION_10_CHANGED,
   CALCULATE_RESULT,
   CALCULATE_SUCCESS,
+  RESET_SCORE
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -27,6 +28,7 @@ const INITIAL_STATE = {
   answer10: '',
   score: 0,
   calculating: false,
+  buttonClicked: false
  };
 
 export default (state = INITIAL_STATE, action) => {
@@ -88,7 +90,9 @@ export default (state = INITIAL_STATE, action) => {
     case CALCULATE_RESULT:
       return { ...state, calculating: true };
     case CALCULATE_SUCCESS:
-      return { ...state, score: action.payload, calculating: false };
+      return { ...state, score: action.payload, calculating: false, buttonClicked: true };
+    case RESET_SCORE:
+      return { ...state, score: 0, buttonClicked: false };
     default:
       return state;
   }

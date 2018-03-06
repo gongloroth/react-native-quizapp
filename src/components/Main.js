@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
-import { loadCategories } from '../actions';
+import { loadCategories, requestToken, resetScore } from '../actions';
 import {
   Button,
   QuizLabel
@@ -14,10 +14,14 @@ class Main extends Component {
 
   componentWillMount() {
     this.props.loadCategories();
+    if (this.props.token === '') {
+      this.props.requestToken();
+    }
   }
 
   onButtonPress() {
     Actions.questionList();
+    this.props.resetScore();
   }
 
   render() {
@@ -71,8 +75,10 @@ const styles = {
 const mapStateToProps = (state) => {
   return {
     loadingCategories: state.cat.loadingCategories,
-    categories: state.cat.categories
+    categories: state.cat.categories,
+    token: state.token.token,
+    score: state.ans.score
   };
 };
 
-export default connect(mapStateToProps, { loadCategories })(Main);
+export default connect(mapStateToProps, { loadCategories, requestToken, resetScore })(Main);

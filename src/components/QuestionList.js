@@ -9,7 +9,7 @@ class QuestionList extends Component {
 
   componentWillMount() {
     console.log(this.props.categoryId);
-    this.props.loadQuestions(this.props.categoryId);
+    this.props.loadQuestions(this.props.categoryId, this.props.token);
   }
 
   onButtonPress() {
@@ -31,6 +31,21 @@ class QuestionList extends Component {
      );
     }
 
+    renderButton() {
+        if (!this.props.submitClicked) {
+          return (
+            <Button onPress={this.onButtonPress.bind(this)}>
+              Submit
+            </Button>
+          );
+        }
+          return (
+            <Button onPress={this.onButtonPress.bind(this)}>
+              Send Results
+            </Button>
+          );
+    }
+
   render() {
     if (this.props.loadingQuestions) {
       console.log('Loading questions: ');
@@ -47,9 +62,7 @@ class QuestionList extends Component {
     return (
       <ScrollView style={styles.mainContainer}>
         {this.renderQuestions()}
-        <Button onPress={this.onButtonPress.bind(this)}>
-          Submit
-        </Button>
+        {this.renderButton()}
       </ScrollView>
     );
   }
@@ -78,7 +91,9 @@ const mapStateToProps = (state) => {
     categoryId: state.cat.PlaceholderId,
     answers: state.ans,
     result: state.ans.score,
-    calculating: state.ans.calculating
+    calculating: state.ans.calculating,
+    token: state.token.token,
+    submitClicked: state.ans.buttonClicked
   };
 };
 

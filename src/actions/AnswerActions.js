@@ -13,6 +13,7 @@ import {
   ANSWER_OPTION_10_CHANGED,
   CALCULATE_RESULT,
   CALCULATE_SUCCESS,
+  RESET_SCORE
 } from './types';
 
 export const answerChanged = (index, value, questionIndex) => {
@@ -136,4 +137,10 @@ export const calculateSuccess = (dispatch, score) => {
     type: CALCULATE_SUCCESS,
     payload: score
   });
+};
+
+export const resetScore = () => {
+  return {
+    type: RESET_SCORE
+  };
 };
