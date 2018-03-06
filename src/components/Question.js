@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, WebView } from 'react-native';
 import { connect } from 'react-redux';
 import { RadioGroup, RadioButton } from 'react-native-flexi-radio-button';
 import { answerChanged } from '../actions';
@@ -41,12 +41,17 @@ class Question extends Component {
   }
 
   render() {
+    const he = require('he');
+
+    const question = he.decode(this.props.question.question);
+    console.log(question);
+
     return (
       <View>
         <View style={styles.containerStyle}>
           <Text style={styles.labelStyle}>Question {this.props.index + 1}</Text>
           <Text style={styles.questionStyle}>
-            {this.props.question.question}
+            {question}
           </Text>
         </View>
         <View style={styles.containerStyle2}>

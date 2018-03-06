@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ScrollView, ActivityIndicator, ToastAndroid } from 'react-native';
+import { View, ScrollView, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
 import { loadQuestions, calculateResult } from '../actions';
 import Question from './Question';
@@ -15,12 +15,6 @@ class QuestionList extends Component {
   onButtonPress() {
     console.log(this.props.answers);
     this.props.calculateResult(this.props.answers, this.props.questions);
-  }
-
-  onShowResult() {
-    console.log(this.props.result);
-    const resultString = 'Great job!\n Your result is: ' + this.props.result + ' points';
-    ToastAndroid.show(resultString, ToastAndroid.SHORT);
   }
 
     renderQuestions() {
@@ -55,9 +49,6 @@ class QuestionList extends Component {
         {this.renderQuestions()}
         <Button onPress={this.onButtonPress.bind(this)}>
           Submit
-        </Button>
-        <Button onPress={this.onShowResult.bind(this)}>
-          Show Results
         </Button>
       </ScrollView>
     );

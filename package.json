@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "firebase": "^4.10.0",
+    "he": "^1.1.1",
     "react": "16.2.0",
     "react-native": "0.53.0",
     "react-native-flexi-radio-button": "^0.2.2",

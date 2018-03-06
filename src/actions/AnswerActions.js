@@ -1,3 +1,4 @@
+import { ToastAndroid } from 'react-native';
 import {
   ANSWER_OPTIONS,
   ANSWER_OPTION_1_CHANGED,
@@ -124,6 +125,9 @@ export const calculateResult = (userAnswers, questions) => {
     score += 1;
   }
   calculateSuccess(dispatch, score);
+  const resultString = 'Great job!\n Your result is: ' + score + ' points';
+  console.log(score);
+  ToastAndroid.show(resultString, ToastAndroid.SHORT);
   };
 };
 
