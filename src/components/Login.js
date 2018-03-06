@@ -7,10 +7,17 @@ import {
   ActivityIndicator
 } from 'react-native';
 import { connect } from 'react-redux';
-import { emailChanged, passwordChanged, loginUser } from '../actions';
+import { emailChanged, passwordChanged, loginUser, resetToken } from '../actions';
 import { Button } from './common';
 
 class Login extends Component {
+  componentWillMount() {
+    if (this.props.token !== '') {
+    resetToken();
+    console.log(this.props.token);
+    }
+  }
+
   onEmailChange(text) {
     this.props.emailChanged(text);
   }
@@ -145,19 +152,22 @@ const styles = {
   }
 };
 
-const mapStateToProps = ({ auth }) => {
-  const { email, password, error, loading } = auth;
+const mapStateToProps = (state) => {
+  const { email, password, error, loading } = state.auth;
+  const { token } = state.token;
 
   return {
     email,
     password,
     error,
-    loading
+    loading,
+    token
   };
 };
 
 export default connect(mapStateToProps, {
   emailChanged,
   passwordChanged,
-  loginUser
+  loginUser,
+  resetToken
 })(Login);

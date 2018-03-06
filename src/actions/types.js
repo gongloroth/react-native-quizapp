@@ -27,3 +27,9 @@ export const ANSWER_OPTION_10_CHANGED = 'answer_option_10_changed';
 
 export const CALCULATE_RESULT = 'calculate_result';
 export const CALCULATE_SUCCESS = 'calculate_success';
+export const RESET_SCORE = 'reset_score';
+
+export const REQUEST_TOKEN = 'request_token';
+export const REQUEST_TOKEN_SUCCESS = 'request_token_success';
+export const REQUEST_TOKEN_FAIL = 'request_token_fail';
+export const RESET_TOKEN = 'reset_token';
