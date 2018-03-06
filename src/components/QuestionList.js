@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, ScrollView, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
+import email from 'react-native-email'
 import { loadQuestions, calculateResult } from '../actions';
 import Question from './Question';
 import { Button } from './common';
@@ -12,9 +13,19 @@ class QuestionList extends Component {
     this.props.loadQuestions(this.props.categoryId, this.props.token);
   }
 
-  onButtonPress() {
+  onSubmitButtonPress() {
     console.log(this.props.answers);
     this.props.calculateResult(this.props.answers, this.props.questions);
+  }
+
+  onSendButtonPress = () => {
+    const to = ['example@gmail.com'];
+    const resultString = 'Great job!\n Your result is: ' + this.props.result + ' points';
+
+    email(to, {
+      subject: 'Quiz Results',
+      body: resultString
+    }).catch(console.error);
   }
 
     renderQuestions() {
@@ -34,13 +45,13 @@ class QuestionList extends Component {
     renderButton() {
         if (!this.props.submitClicked) {
           return (
-            <Button onPress={this.onButtonPress.bind(this)}>
+            <Button onPress={this.onSubmitButtonPress.bind(this)}>
               Submit
             </Button>
           );
         }
           return (
-            <Button onPress={this.onButtonPress.bind(this)}>
+            <Button onPress={this.onSendButtonPress.bind(this)}>
               Send Results
             </Button>
           );
