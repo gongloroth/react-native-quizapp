@@ -12,7 +12,6 @@ import {
   ANSWER_OPTION_10_CHANGED,
   CALCULATE_RESULT,
   CALCULATE_SUCCESS,
-  CALCULATE_FAIL
 } from '../actions/types';
 
 const INITIAL_STATE = {

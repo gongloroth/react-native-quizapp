@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Picker, View, ActivityIndicator } from 'react-native';
+import { Picker, View } from 'react-native';
 import { connect } from 'react-redux';
 import { categoryChanged } from '../actions';
 
